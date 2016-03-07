@@ -30,26 +30,25 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
-class Socialsharing extends Module implements WidgetInterface
+class Ps_Sharebuttons extends Module implements WidgetInterface
 {
     protected static $networks = array('Facebook', 'Twitter', 'Google', 'Pinterest');
     protected $html = '';
 
     public function __construct()
     {
-        $this->name = 'socialsharing';
+        $this->name = 'ps_sharebuttons';
         $this->author = 'PrestaShop';
-        $this->tab = 'advertising_marketing';
         $this->need_instance = 0;
-        $this->version = '2.0';
+        $this->version = '1.0.0';
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
         $this->_directory = dirname(__FILE__);
 
         parent::__construct();
 
-        $this->displayName = $this->l('Social sharing');
-        $this->description = $this->l('Displays social sharing buttons (Twitter, Facebook, Google+ and Pinterest) on every product page.');
+        $this->displayName = $this->l('Social media share buttons');
+        $this->description = $this->l('Displays social media sharing buttons (Twitter, Facebook, Google+ and Pinterest) on every product page.');
     }
 
     public function install()
@@ -78,8 +77,7 @@ class Socialsharing extends Module implements WidgetInterface
                 Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
             }
             $this->html .= $this->displayConfirmation($this->l('Settings updated'));
-            Tools::clearCache(Context::getContext()->smarty, $this->getTemplatePath('socialsharing.tpl'));
-            Tools::clearCache(Context::getContext()->smarty, $this->getTemplatePath('socialsharing_compare.tpl'));
+            Tools::clearCache(Context::getContext()->smarty, $this->getTemplatePath('ps_sharebuttons.tpl'));
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
         }
 
@@ -129,7 +127,7 @@ class Socialsharing extends Module implements WidgetInterface
 	public function renderWidget($hookName, array $params)
 	{
 		$this->smarty->assign($this->getWidgetVariables($hookName, $params));
-		return $this->display(__FILE__, 'socialsharing.tpl');
+		return $this->display(__FILE__, 'ps_sharebuttons.tpl');
 	}
 
 	public function getWidgetVariables($hookName, array $params)
