@@ -53,11 +53,13 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 
     public function install()
     {
-        return (parent::install() &&
-            Configuration::updateValue('PS_SC_TWITTER', 1) &&
-            Configuration::updateValue('PS_SC_FACEBOOK', 1) &&
-            Configuration::updateValue('PS_SC_GOOGLE', 1) &&
-            Configuration::updateValue('PS_SC_PINTEREST', 1));
+        return parent::install()
+            && Configuration::updateValue('PS_SC_TWITTER', 1)
+            && Configuration::updateValue('PS_SC_FACEBOOK', 1)
+            && Configuration::updateValue('PS_SC_GOOGLE', 1)
+            && Configuration::updateValue('PS_SC_PINTEREST', 1)
+            && $this->registerHook('displayProductButtons')
+        ;
     }
 
     public function getConfigFieldsValues()
