@@ -24,11 +24,13 @@
 *}
 
 {block name='social_sharing'}
-  <div class="social-sharing">
-    <ul>
-      {foreach from=$social_share_links item='social_share_link'}
-        <li class="{$social_share_link.class}"><a href="{$social_share_link.url}">{$social_share_link.label}</a></li>
-      {/foreach}
-    </ul>
-  </div>
+  {if $social_share_links}
+    <div class="social-sharing">
+      <ul>
+        {foreach from=$social_share_links item='social_share_link'}
+          <li class="{$social_share_link.class}"><a href="{$social_share_link.url}">{$social_share_link.label}</a></li>
+        {/foreach}
+      </ul>
+    </div>
+  {/if}
 {/block}
