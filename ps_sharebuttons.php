@@ -79,7 +79,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
             }
             $this->html .= $this->displayConfirmation($this->getTranslator()->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
-            Tools::clearCache(Context::getContext()->smarty, $this->getTemplatePath('ps_sharebuttons.tpl'));
+            Tools::clearCache(Context::getContext()->smarty, 'module:ps_sharebuttons/ps_sharebuttons.tpl');
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
         }
 
@@ -129,7 +129,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 	public function renderWidget($hookName, array $params)
 	{
 		$this->smarty->assign($this->getWidgetVariables($hookName, $params));
-		return $this->display(__FILE__, 'ps_sharebuttons.tpl');
+		return $this->fetch('module:ps_sharebuttons/views/templates/hook/ps_sharebuttons.tpl');
 	}
 
 	public function getWidgetVariables($hookName, array $params)
