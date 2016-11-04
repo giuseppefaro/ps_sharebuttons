@@ -33,22 +33,26 @@ use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 class Ps_Sharebuttons extends Module implements WidgetInterface
 {
     protected static $networks = array('Facebook', 'Twitter', 'Google', 'Pinterest');
-    protected $html = '';
+
+    private $templateFile;
 
     public function __construct()
     {
         $this->name = 'ps_sharebuttons';
         $this->author = 'PrestaShop';
-        $this->need_instance = 0;
         $this->version = '1.0.5';
+        $this->need_instance = 0;
+
         $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
-        $this->bootstrap = true;
         $this->_directory = dirname(__FILE__);
 
+        $this->bootstrap = true;
         parent::__construct();
 
         $this->displayName = $this->getTranslator()->trans('Social media share buttons', array(), 'Modules.ShareButtons.Admin');
         $this->description = $this->getTranslator()->trans('Displays social media sharing buttons (Twitter, Facebook, Google+ and Pinterest) on every product page.', array(), 'Modules.ShareButtons.Admin');
+
+        $this->templateFile = 'module:ps_sharebuttons/views/templates/hook/ps_sharebuttons.tpl';
     }
 
     public function install()
@@ -65,6 +69,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
     public function getConfigFieldsValues()
     {
         $values = array();
+
         foreach (self::$networks as $network) {
             $values['PS_SC_'.Tools::strtoupper($network)] = (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network), Configuration::get('PS_SC_'.Tools::strtoupper($network)));
         }
@@ -74,12 +79,16 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 
     public function getContent()
     {
+        $output = '';
         if (Tools::isSubmit('submitSocialSharing')) {
             foreach (self::$networks as $network) {
                 Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
             }
-            $this->html .= $this->displayConfirmation($this->getTranslator()->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
-            Tools::clearCache(Context::getContext()->smarty, 'module:ps_sharebuttons/ps_sharebuttons.tpl');
+
+            $this->_clearCache($this->templateFile);
+
+            $output .= $this->displayConfirmation($this->getTranslator()->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
+
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
         }
 
@@ -110,7 +119,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             );
         }
 
-        return $this->html.$helper->generateForm(array(
+        return $output.$helper->generateForm(array(
             array(
                 'form' => array(
                     'legend' => array(
@@ -126,14 +135,19 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         ));
     }
 
-	public function renderWidget($hookName, array $params)
-	{
-		$this->smarty->assign($this->getWidgetVariables($hookName, $params));
-		return $this->fetch('module:ps_sharebuttons/views/templates/hook/ps_sharebuttons.tpl');
-	}
+    public function renderWidget($hookName, array $params)
+    {
+        $key = 'ps_sharebuttons|' . $params['product']['link'];
 
-	public function getWidgetVariables($hookName, array $params)
-	{
+        if (!$this->isCached($this->templateFile, $this->getCacheId($key))) {
+            $this->smarty->assign($this->getWidgetVariables($hookName, $params));
+        }
+
+        return $this->fetch($this->templateFile, $this->getCacheId($key));
+    }
+
+    public function getWidgetVariables($hookName, array $params)
+    {
         if (!isset($this->context->controller->php_self) || $this->context->controller->php_self != 'product') {
             return;
         }
@@ -158,39 +172,39 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $sharing_img = addcslashes($this->context->link->getImageLink($product->link_rewrite, $image_cover_id), "'");
 
         if (Configuration::get('PS_SC_FACEBOOK')) {
-            $social_share_links['facebook'] = [
+            $social_share_links['facebook'] = array(
                 'label' => $this->getTranslator()->trans('Share', array(), 'Modules.ShareButtons.Shop'),
                 'class' => 'facebook',
                 'url' => 'http://www.facebook.com/sharer.php?u='.$sharing_url,
-            ];
+            );
         }
 
         if (Configuration::get('PS_SC_TWITTER')) {
-            $social_share_links['twitter'] = [
+            $social_share_links['twitter'] = array(
                 'label' => $this->getTranslator()->trans('Tweet', array(), 'Modules.ShareButtons.Shop'),
                 'class' => 'twitter',
                 'url' => 'https://twitter.com/intent/tweet?text='.$sharing_name.' '.$sharing_url,
-            ];
+            );
         }
 
         if (Configuration::get('PS_SC_GOOGLE')) {
-            $social_share_links['googleplus'] = [
+            $social_share_links['googleplus'] = array(
                 'label' => $this->getTranslator()->trans('Google+', array(), 'Modules.ShareButtons.Shop'),
                 'class' => 'googleplus',
                 'url' => 'https://plus.google.com/share?url='.$sharing_url,
-            ];
+            );
         }
 
         if (Configuration::get('PS_SC_PINTEREST')) {
-            $social_share_links['pinterest'] = [
+            $social_share_links['pinterest'] = array(
                 'label' => $this->getTranslator()->trans('Pinterest', array(), 'Modules.ShareButtons.Shop'),
                 'class' => 'pinterest',
                 'url' => 'http://www.pinterest.com/pin/create/button/?media='.$sharing_img.'&url='.$sharing_url,
-            ];
+            );
         }
 
-        return [
+        return array(
             'social_share_links' => $social_share_links,
-        ];
-	}
+        );
+    }
 }
