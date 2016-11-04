@@ -135,19 +135,19 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         ));
     }
 
-	public function renderWidget($hookName, array $params)
-	{
-	    $key = 'ps_sharebuttons|' . $params['product']['link'];
+    public function renderWidget($hookName, array $params)
+    {
+        $key = 'ps_sharebuttons|' . $params['product']['link'];
 
-		if (!$this->isCached($this->templateFile, $this->getCacheId($key))) {
+        if (!$this->isCached($this->templateFile, $this->getCacheId($key))) {
             $this->smarty->assign($this->getWidgetVariables($hookName, $params));
         }
 
-		return $this->fetch($this->templateFile, $this->getCacheId($key));
-	}
+        return $this->fetch($this->templateFile, $this->getCacheId($key));
+    }
 
-	public function getWidgetVariables($hookName, array $params)
-	{
+    public function getWidgetVariables($hookName, array $params)
+    {
         if (!isset($this->context->controller->php_self) || $this->context->controller->php_self != 'product') {
             return;
         }
@@ -206,5 +206,5 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         return array(
             'social_share_links' => $social_share_links,
         );
-	}
+    }
 }
