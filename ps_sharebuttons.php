@@ -137,7 +137,10 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 
     public function renderWidget($hookName, array $params)
     {
-        $key = 'ps_sharebuttons|' . $params['product']['link'];
+        $key = 'ps_sharebuttons|' . $params['product']['id_product'];
+        if (!empty($params['product']['id_product_attribute'])) {
+            $key .= '|' . $params['product']['id_product_attribute'];
+        }
 
         if (!$this->isCached($this->templateFile, $this->getCacheId($key))) {
             $this->smarty->assign($this->getWidgetVariables($hookName, $params));
