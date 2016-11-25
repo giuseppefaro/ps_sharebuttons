@@ -40,7 +40,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
     {
         $this->name = 'ps_sharebuttons';
         $this->author = 'PrestaShop';
-        $this->version = '1.0.6';
+        $this->version = '1.0.7';
         $this->need_instance = 0;
 
         $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
