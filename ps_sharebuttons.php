@@ -62,8 +62,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             && Configuration::updateValue('PS_SC_FACEBOOK', 1)
             && Configuration::updateValue('PS_SC_GOOGLE', 1)
             && Configuration::updateValue('PS_SC_PINTEREST', 1)
-            && $this->registerHook('displayProductButtons')
-        ;
+            && $this->registerHook('displayProductButtons');
     }
 
     public function getConfigFieldsValues()
