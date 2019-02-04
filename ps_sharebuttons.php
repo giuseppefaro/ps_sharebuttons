@@ -71,7 +71,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $values = array();
 
         foreach (self::$networks as $network) {
-            $values['PS_SC_'.Tools::strtoupper($network)] = (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network), Configuration::get('PS_SC_'.Tools::strtoupper($network)));
+            $values['PS_SC_'.Tools::strtoupper($network)] = (int) Tools::getValue('PS_SC_'.Tools::strtoupper($network), Configuration::get('PS_SC_'.Tools::strtoupper($network)));
         }
 
         return $values;
@@ -82,7 +82,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $output = '';
         if (Tools::isSubmit('submitSocialSharing')) {
             foreach (self::$networks as $network) {
-                Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
+                Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int) Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
             }
 
             $this->_clearCache($this->templateFile);
@@ -167,7 +167,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 
         $image_cover_id = $product->getCover($product->id);
         if (is_array($image_cover_id) && isset($image_cover_id['id_image'])) {
-            $image_cover_id = (int)$image_cover_id['id_image'];
+            $image_cover_id = (int) $image_cover_id['id_image'];
         } else {
             $image_cover_id = 0;
         }
