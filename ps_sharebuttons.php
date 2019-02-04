@@ -108,14 +108,14 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                     array(
                         'id' => Tools::strtolower($network).'_active_on',
                         'value' => 1,
-                        'label' => $this->trans('Enabled', array(), 'Admin.Global')
+                        'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                     ),
                     array(
                         'id' => Tools::strtolower($network).'_active_off',
                         'value' => 0,
-                        'label' => $this->trans('Disabled', array(), 'Admin.Global')
-                    )
-                )
+                        'label' => $this->trans('Disabled', array(), 'Admin.Global'),
+                    ),
+                ),
             );
         }
 
@@ -124,14 +124,14 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 'form' => array(
                     'legend' => array(
                         'title' => $this->displayName,
-                        'icon' => 'icon-share'
+                        'icon' => 'icon-share',
                     ),
                     'input' => $fields,
                     'submit' => array(
-                        'title' => $this->trans('Save', array(), 'Admin.Actions')
-                    )
-                )
-            )
+                        'title' => $this->trans('Save', array(), 'Admin.Actions'),
+                    ),
+                ),
+            ),
         ));
     }
 
