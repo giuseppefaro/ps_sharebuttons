@@ -162,8 +162,8 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         }
 
         $social_share_links = [];
-        $sharing_url = addcslashes($this->context->link->getProductLink($product), "'");
-        $sharing_name = addcslashes($product->name, "'");
+        $sharing_url = urlencode(addcslashes($this->context->link->getProductLink($product), "'"));
+        $sharing_name = urlencode(addcslashes($product->name, "'"));
 
         $image_cover_id = $product->getCover($product->id);
         if (is_array($image_cover_id) && isset($image_cover_id['id_image'])) {
@@ -172,7 +172,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             $image_cover_id = 0;
         }
 
-        $sharing_img = addcslashes($this->context->link->getImageLink($product->link_rewrite, $image_cover_id), "'");
+        $sharing_img = urlencode(addcslashes($this->context->link->getImageLink($product->link_rewrite, $image_cover_id), "'"));
 
         if (Configuration::get('PS_SC_FACEBOOK')) {
             $social_share_links['facebook'] = array(
@@ -186,7 +186,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             $social_share_links['twitter'] = array(
                 'label' => $this->trans('Tweet', array(), 'Modules.Sharebuttons.Shop'),
                 'class' => 'twitter',
-                'url' => 'https://twitter.com/intent/tweet?text='.$sharing_name.' '.$sharing_url,
+                'url' => 'https://twitter.com/intent/tweet?text='.$sharing_name.'+'.$sharing_url,
             );
         }
 
