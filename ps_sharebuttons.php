@@ -114,8 +114,8 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                         'value' => 0,
                         'label' => $this->trans('Disabled', [], 'Admin.Global'),
                     ],
-                ),
-            );
+                ],
+            ];
         }
 
         return $output.$helper->generateForm([
