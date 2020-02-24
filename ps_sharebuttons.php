@@ -32,7 +32,7 @@ use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
 class Ps_Sharebuttons extends Module implements WidgetInterface
 {
-    protected static $networks = ['Facebook', 'Twitter', 'Google', 'Pinterest'];
+    protected static $networks = ['Facebook', 'Twitter', 'Pinterest'];
 
     private $templateFile;
 
@@ -50,7 +50,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         parent::__construct();
 
         $this->displayName = $this->trans('Social media share buttons', [], 'Modules.Sharebuttons.Admin');
-        $this->description = $this->trans('Displays social media sharing buttons (Twitter, Facebook, Google+ and Pinterest) on every product page.', [], 'Modules.Sharebuttons.Admin');
+        $this->description = $this->trans('Displays social media sharing buttons (Twitter, Facebook and Pinterest) on every product page.', [], 'Modules.Sharebuttons.Admin');
 
         $this->templateFile = 'module:ps_sharebuttons/views/templates/hook/ps_sharebuttons.tpl';
     }
@@ -60,7 +60,6 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         return parent::install()
             && Configuration::updateValue('PS_SC_TWITTER', 1)
             && Configuration::updateValue('PS_SC_FACEBOOK', 1)
-            && Configuration::updateValue('PS_SC_GOOGLE', 1)
             && Configuration::updateValue('PS_SC_PINTEREST', 1)
             && $this->registerHook('displayProductButtons')
         ;
@@ -71,7 +70,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $values = [];
 
         foreach (self::$networks as $network) {
-            $values['PS_SC_'.Tools::strtoupper($network)] = (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network), Configuration::get('PS_SC_'.Tools::strtoupper($network)));
+            $values['PS_SC_'.Tools::strtoupper($network)] = (int) Tools::getValue('PS_SC_'.Tools::strtoupper($network), Configuration::get('PS_SC_'.Tools::strtoupper($network)));
         }
 
         return $values;
@@ -82,7 +81,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $output = '';
         if (Tools::isSubmit('submitSocialSharing')) {
             foreach (self::$networks as $network) {
-                Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int)Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
+                Configuration::updateValue('PS_SC_'.Tools::strtoupper($network), (int) Tools::getValue('PS_SC_'.Tools::strtoupper($network)));
             }
 
             $this->_clearCache($this->templateFile);
@@ -108,15 +107,15 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                     [
                         'id' => Tools::strtolower($network).'_active_on',
                         'value' => 1,
-                        'label' => $this->trans('Enabled', [], 'Admin.Global')
+                        'label' => $this->trans('Enabled', [], 'Admin.Global'),
                     ],
                     [
                         'id' => Tools::strtolower($network).'_active_off',
                         'value' => 0,
-                        'label' => $this->trans('Disabled', [], 'Admin.Global')
-                    ]
-                ]
-            ];
+                        'label' => $this->trans('Disabled', [], 'Admin.Global'),
+                    ],
+                ),
+            );
         }
 
         return $output.$helper->generateForm([
@@ -124,14 +123,14 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 'form' => [
                     'legend' => [
                         'title' => $this->displayName,
-                        'icon' => 'icon-share'
+                        'icon' => 'icon-share',
                     ],
                     'input' => $fields,
                     'submit' => [
-                        'title' => $this->trans('Save', [], 'Admin.Actions')
-                    ]
-                ]
-            ]
+                        'title' => $this->trans('Save', [], 'Admin.Actions'),
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -167,7 +166,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
 
         $image_cover_id = $product->getCover($product->id);
         if (is_array($image_cover_id) && isset($image_cover_id['id_image'])) {
-            $image_cover_id = (int)$image_cover_id['id_image'];
+            $image_cover_id = (int) $image_cover_id['id_image'];
         } else {
             $image_cover_id = 0;
         }
@@ -187,14 +186,6 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 'label' => $this->trans('Tweet', [], 'Modules.Sharebuttons.Shop'),
                 'class' => 'twitter',
                 'url' => 'https://twitter.com/intent/tweet?text='.$sharing_name.' '.$sharing_url,
-            ];
-        }
-
-        if (Configuration::get('PS_SC_GOOGLE')) {
-            $social_share_links['googleplus'] = [
-                'label' => $this->trans('Google+', [], 'Modules.Sharebuttons.Shop'),
-                'class' => 'googleplus',
-                'url' => 'https://plus.google.com/share?url='.$sharing_url,
             ];
         }
 
