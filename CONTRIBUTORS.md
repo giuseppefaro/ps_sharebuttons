@@ -1,32 +1,34 @@
 GitHub contributors:
 --------------------------------
- - Alex Even
- - AlexEven
- - Francois Gaillard
- - Gregory Roussac
- - Jerome Nadaud
- - Jerome Nadaud
- - Jérôme Nadaud
- - Jérôme Nadaud
- - MathiasReker
- - Maxime Biloé
- - PierreRambaud
- - PrestaEdit
- - Progi1984
- - Quetzacoalt91
- - aleeks
- - antoin-m
- - cedricfontaine
- - djfm
- - eternoendless
- - gRoussac
- - gRoussac
- - gaillafr
- - jorgevrgs
- - julienbourdeau
- - matks
- - maximebiloe
- - micka-fdz
- - mickaelandrieu
- - tchauviere
- - watou
+- Alex Even
+- Alex Sampaio
+- Francois Gaillard
+- François-Marie de Jouvencel
+- GoT
+- Gregory Roussac
+- Jerome Nadaud
+- John Cocula
+- Jorge Vargas
+- Julien Bourdeau
+- Jérôme Nadaud
+- MathiasReker
+- Mathieu Ferment
+- Maxime Biloé
+- Michel ANTOINE
+- Mickaël Andrieu
+- Mickaël Fernandez
+- Pablo Borowicz
+- Pierre RAMBAUD
+- Presta Module
+- PrestaEdit
+- Progi1984
+- Quetzacoalt91
+- Sacha Froment
+- Thibaud Chauviere
+- Thomas N
+- Thomas Nabord
+- cedricfontaine
+- emilien-puget
+- gRoussac
+- khouloud Belguiith
+- marionf
