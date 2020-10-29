@@ -50,7 +50,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         parent::__construct();
 
         $this->displayName = $this->trans('Social media share buttons', [], 'Modules.Sharebuttons.Admin');
-        $this->description = $this->trans('Displays social media sharing buttons (Twitter, Facebook and Pinterest) on every product page.', [], 'Modules.Sharebuttons.Admin');
+        $this->description = $this->trans('Instagram, YouTube, gather your community with social media sharing buttons on product pages.', [], 'Modules.Sharebuttons.Admin');
 
         $this->templateFile = 'module:ps_sharebuttons/views/templates/hook/ps_sharebuttons.tpl';
     }
