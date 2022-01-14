@@ -44,6 +44,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
     public function __construct()
     {
         $this->name = 'ps_sharebuttons';
+        $this->tab = 'advertising_marketing';
         $this->author = 'PrestaShop';
         $this->version = '2.1.1';
         $this->need_instance = 0;
