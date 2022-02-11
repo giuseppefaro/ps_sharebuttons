@@ -50,7 +50,6 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         $this->need_instance = 0;
 
         $this->ps_versions_compliancy = ['min' => '1.7.1.0', 'max' => _PS_VERSION_];
-        $this->_directory = dirname(__FILE__);
 
         $this->bootstrap = true;
         parent::__construct();
@@ -195,7 +194,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             $image_cover_id = 0;
         }
 
-        $sharing_img = urlencode(addcslashes($this->context->link->getImageLink($product->link_rewrite, $image_cover_id), "'"));
+        $sharing_img = urlencode(addcslashes($this->context->link->getImageLink($product->link_rewrite, (string) $image_cover_id), "'"));
 
         if (Configuration::get('PS_SC_FACEBOOK')) {
             $social_share_links['facebook'] = [
