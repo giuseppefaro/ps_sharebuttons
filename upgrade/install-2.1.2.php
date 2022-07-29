@@ -29,6 +29,6 @@ if (!defined('_PS_VERSION_')) {
 
 function upgrade_module_2_1_2($object)
 {
-    return $object->unregisterHook('displayProductButtons')        
+    return $object->unregisterHook('displayProductButtons')
         && $object->registerHook('displayProductAdditionalInfo');
 }
