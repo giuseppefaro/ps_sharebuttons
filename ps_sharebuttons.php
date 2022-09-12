@@ -69,7 +69,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         }
 
         return parent::install()
-            && $this->registerHook('displayProductButtons')
+            && $this->registerHook('displayProductAdditionalInfo')
         ;
     }
 
