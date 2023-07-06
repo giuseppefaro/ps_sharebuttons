@@ -4,6 +4,10 @@
 
 Instagram, YouTube, gather your community with social media sharing buttons on product pages.
 
+## Compatibility
+
+PrestaShop: `1.7.1.0` or later
+
 ## Multistore compatibility
 
 This module is compatible with multistore ✔
