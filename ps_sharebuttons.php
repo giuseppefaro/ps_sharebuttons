@@ -37,7 +37,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
      */
     const PS_16_EQUIVALENT_MODULE = 'socialsharing';
 
-    protected static $networks = ['Facebook', 'Twitter', 'Pinterest'];
+    protected static $networks = ['Facebook', 'Twitter', 'Pinterest','WhatsApp'];
 
     private $templateFile;
 
@@ -66,6 +66,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
             Configuration::updateValue('PS_SC_TWITTER', 1);
             Configuration::updateValue('PS_SC_FACEBOOK', 1);
             Configuration::updateValue('PS_SC_PINTEREST', 1);
+            Configuration::updateValue('PS_SC_WHATSAPP', 1);
         }
 
         return parent::install()
@@ -217,6 +218,13 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 'label' => $this->trans('Pinterest', [], 'Modules.Sharebuttons.Shop'),
                 'class' => 'pinterest',
                 'url' => 'https://www.pinterest.com/pin/create/button/?media=' . $sharing_img . '&url=' . $sharing_url,
+            ];
+        }
+        if (Configuration::get('PS_SC_WHATSAPP')) {
+            $social_share_links['whatsapp'] = [
+                'label' => $this->trans('Share', [], 'Modules.Sharebuttons.Shop'),
+                'class' => 'whatsapp',
+                'url' => 'https://api.whatsapp.com/send?text=' . $sharing_name . ' ' . $sharing_url,
             ];
         }
 
