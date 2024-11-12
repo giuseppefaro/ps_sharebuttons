@@ -37,6 +37,7 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
      */
     const PS_16_EQUIVALENT_MODULE = 'socialsharing';
 
+
     protected static $networks = ['Facebook', 'Twitter', 'Pinterest','WhatsApp'];
 
     private $templateFile;
@@ -65,10 +66,10 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
         if (!$this->uninstallPrestaShop16Module()) {
             Configuration::updateValue('PS_SC_TWITTER', 1);
             Configuration::updateValue('PS_SC_FACEBOOK', 1);
+			Configuration::updateValue('PS_SC_INSTAGRAM', 1);
             Configuration::updateValue('PS_SC_PINTEREST', 1);
             Configuration::updateValue('PS_SC_WHATSAPP', 1);
         }
-
         return parent::install()
             && $this->registerHook('displayProductAdditionalInfo')
         ;
@@ -202,6 +203,14 @@ class Ps_Sharebuttons extends Module implements WidgetInterface
                 'label' => $this->trans('Share', [], 'Modules.Sharebuttons.Shop'),
                 'class' => 'facebook',
                 'url' => 'https://www.facebook.com/sharer.php?u=' . $sharing_url,
+            ];
+        }
+		
+        if (Configuration::get('PS_SC_INSTAGRAM')) {
+            $social_share_links['instagram'] = [
+                'label' => $this->trans('Share', [], 'Modules.Sharebuttons.Shop'),
+                'class' => 'instagram',
+                'url' => 'https://www.instagram.com/sharer.php?u=' . $sharing_url,
             ];
         }
 
